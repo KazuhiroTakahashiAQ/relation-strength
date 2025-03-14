@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.decomposition import PCA
-
+import re
 
 def load_source_data(file_path="data.txt"):
     """
@@ -9,8 +9,8 @@ def load_source_data(file_path="data.txt"):
     """
     with open(file_path, "r", encoding="utf-8") as f:
         data_str = f.read()
-    # 改行で分割し、タブで各項目に分割
-    rows = [line.split("\t") for line in data_str.strip().split("\n")]
+    # 改行で分割し、タブ、スペース、カンマで各項目に分割
+    rows = [re.split(r'[\t ,]+', line.strip()) for line in data_str.strip().split("\n")]
     df = pd.DataFrame(rows, columns=["強み1", "強み2", "強み3", "強み4", "強み5"])
     return df, rows
 
