@@ -22,7 +22,7 @@ def create_3d_figure(df_reduced, highlight_indices=None):
         height=600,
     )
     # マーカーサイズを小さく (size=3)
-    fig.update_traces(marker=dict(size=3))
+    fig.update_traces(marker=dict(size=2))
 
     # 強調表示用に追加トレース
     if highlight_indices:
