@@ -18,7 +18,7 @@ mpl.rcParams["axes.unicode_minus"] = False
 if "already_rerun" not in st.session_state:
     st.session_state["already_rerun"] = False
 
-st.title("Strength Finder 可視化アプリ")
+st.title("ベクトル 可視化アプリ")
 
 # --- サイドバー ---
 st.sidebar.subheader("表示モードの選択")

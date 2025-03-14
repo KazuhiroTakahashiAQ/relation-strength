@@ -17,7 +17,7 @@ def create_3d_figure(df_reduced, highlight_indices=None):
         z="PC3",
         color="Cluster",
         hover_data=["Data"],
-        title="Strength Finder 3D インタラクティブ散布図",
+        title="3D インタラクティブ散布図",
         width=800,
         height=600,
     )

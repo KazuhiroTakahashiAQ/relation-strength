@@ -62,7 +62,7 @@ def create_network_graph(rows):
     fig = go.Figure(
         data=[edge_trace, node_trace],
         layout=go.Layout(
-            title="Strength Finder ネットワークグラフ",
+            title="ネットワークグラフ",
             title_x=0.5,
             showlegend=False,
             hovermode="closest",

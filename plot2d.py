@@ -16,7 +16,7 @@ def create_2d_figure(df_reduced, highlight_indices=None):
         y="PC2",
         color="Cluster",
         hover_data=["Data"],  # ホバー時に行番号を表示
-        title="Strength Finder 2D インタラクティブ散布図",
+        title="2D インタラクティブ散布図",
     )
     # マーカーサイズを小さく
     fig.update_traces(marker=dict(size=3))
