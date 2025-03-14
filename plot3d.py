@@ -17,11 +17,10 @@ def create_3d_figure(df_reduced, highlight_indices=None):
         width=800,
         height=600,
     )
-    # マーカーサイズを小さく (size=3)
+    # マーカーサイズをさらに小さく (size=3)
     fig.update_traces(marker=dict(size=3))
     if highlight_indices:
         highlight_df = df_reduced.iloc[highlight_indices]
-        # 強調用のトレースを追加（サイズは8, 赤色）
         fig.add_scatter3d(
             x=highlight_df["PC1"],
             y=highlight_df["PC2"],

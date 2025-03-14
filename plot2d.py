@@ -6,10 +6,10 @@ import pandas as pd
 def create_2d_figure(df_reduced, highlight_indices=None):
     """
     2D散布図を作成してFigureとscatterオブジェクトを返す。
-    highlight_indices が指定されていれば該当点を赤枠で強調表示する。
+    highlight_indices が指定されていれば、該当点を赤枠で強調表示する。
     """
     fig, ax = plt.subplots(figsize=(8, 6))
-    # 点のサイズを小さく (s=10)
+    # 点のサイズをさらに小さく (s=10)
     scatter = ax.scatter(
         df_reduced["PC1"],
         df_reduced["PC2"],
@@ -26,12 +26,11 @@ def create_2d_figure(df_reduced, highlight_indices=None):
             ha="left",
         )
     if highlight_indices:
-        # 該当点を赤い輪郭で上書き
         highlight_data = df_reduced.iloc[highlight_indices]
         ax.scatter(
             highlight_data["PC1"],
             highlight_data["PC2"],
-            s=80,
+            s=40,
             facecolors="none",
             edgecolors="red",
             linewidths=2,
