@@ -7,6 +7,7 @@ def create_2d_figure(df_reduced, highlight_indices=None):
     Plotlyを用いた2D散布図を作成してFigureオブジェクトを返す。
     - hover_dataで行番号（Data列）を表示
     - highlight_indicesが指定されていれば追加トレースで強調表示する
+    - x=0, y=0 のラインを描画して、4象限がわかるようにする
     """
     # 基本の2D散布図（PC1 vs PC2）
     fig = px.scatter(
@@ -32,5 +33,9 @@ def create_2d_figure(df_reduced, highlight_indices=None):
                 name="Selected",  # 凡例上の名前
             )
         )
+
+    # 4象限がわかるように軸の原点ラインを太線で表示
+    fig.update_xaxes(zeroline=True, zerolinewidth=2, zerolinecolor="black")
+    fig.update_yaxes(zeroline=True, zerolinewidth=2, zerolinecolor="black")
 
     return fig
