@@ -1,57 +1,36 @@
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
 
 
 def create_2d_figure(df_reduced, highlight_indices=None):
     """
-    2D散布図を作成してFigureとscatterオブジェクトを返す。
-    highlight_indices が指定されていれば、該当点を赤枠で強調表示する。
+    Plotlyを用いた2D散布図を作成してFigureオブジェクトを返す。
+    - hover_dataで行番号（Data列）を表示
+    - highlight_indicesが指定されていれば追加トレースで強調表示する
     """
-    fig, ax = plt.subplots(figsize=(8, 6))
-    # 点のサイズをさらに小さく (s=10)
-    scatter = ax.scatter(
-        df_reduced["PC1"],
-        df_reduced["PC2"],
-        c=df_reduced["Cluster"],
-        cmap="tab10",
-        s=10,
+    # 基本の2D散布図（PC1 vs PC2）
+    fig = px.scatter(
+        df_reduced,
+        x="PC1",
+        y="PC2",
+        color="Cluster",
+        hover_data=["Data"],  # ホバー時に行番号を表示
+        title="Strength Finder 2D インタラクティブ散布図",
     )
-    for i, txt in enumerate(df_reduced["Data"]):
-        ax.annotate(
-            txt,
-            (df_reduced["PC1"][i], df_reduced["PC2"][i]),
-            textcoords="offset points",
-            xytext=(5, 5),
-            ha="left",
-        )
+    # マーカーサイズを小さく
+    fig.update_traces(marker=dict(size=3))
+
+    # 強調表示用に追加トレースを重ねる
     if highlight_indices:
-        highlight_data = df_reduced.iloc[highlight_indices]
-        ax.scatter(
-            highlight_data["PC1"],
-            highlight_data["PC2"],
-            s=40,
-            facecolors="none",
-            edgecolors="red",
-            linewidths=2,
+        highlight_df = df_reduced.iloc[highlight_indices]
+        fig.add_trace(
+            go.Scatter(
+                x=highlight_df["PC1"],
+                y=highlight_df["PC2"],
+                mode="markers",
+                marker=dict(size=8, color="red", symbol="circle-open"),
+                name="Selected",  # 凡例上の名前
+            )
         )
-    ax.set_xlabel("PC1")
-    ax.set_ylabel("PC2")
-    ax.set_title("Strength Finder 2D 散布図")
-    return fig, scatter
 
-
-def get_legend_df(df_reduced):
-    """
-    df_reducedからクラスタごとの色情報を含む凡例用DataFrameを生成する
-    """
-    unique_clusters = sorted(df_reduced["Cluster"].unique())
-    legend_items = []
-    for i in unique_clusters:
-        rgba = cm.tab10(i)
-        hex_color = "#{:02x}{:02x}{:02x}".format(
-            int(rgba[0] * 255), int(rgba[1] * 255), int(rgba[2] * 255)
-        )
-        legend_items.append({"Cluster": i, "Color": hex_color})
-    legend_df = pd.DataFrame(legend_items)
-    return legend_df
+    return fig
