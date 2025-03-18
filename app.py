@@ -6,6 +6,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 import matplotlib as mpl
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 
+
 from data_processing import load_source_data
 from plot2d import create_2d_figure
 from plot3d import create_3d_figure
